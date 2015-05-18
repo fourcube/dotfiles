@@ -1,0 +1,88 @@
+" enable pathogen package manager
+call pathogen#infect()
+
+" function
+"
+" Removes trailing whitespaces
+function! TrimWhiteSpace()
+    %s/\s\+$//e
+endfunction
+
+" go-vim settings
+syntax enable
+filetype plugin on
+let g:go_disable_autoinstall = 0
+
+" neocomplete
+let g:neocomplete#enable_at_startup = 1
+
+set t_Co=256
+colorscheme molokai
+" theme
+set cursorline
+" show line number
+set nu
+" show relative line numbers
+set rnu
+
+" formatting
+set shiftwidth=2
+set tabstop=2
+
+" highlighting
+call matchadd('ErrorMsg', '\%>90v.\+')
+call matchadd('Error', '\s\+$')
+
+" keybindings
+let mapleader = ","
+let maplocalleader = "-"
+map <C-b> :GoBuild<CR>
+map ® :GoRename<CR>
+nnoremap <Leader>rtw :call TrimWhiteSpace()<CR>
+"" Disable Ex Mode
+nnoremap Q <nop>
+"" Edit ALT-v ~/.vimrc
+nnoremap <leader>ev :vsplit $MYVIMRC<CR>
+"" Reload ALT-V ~/.vimrc
+nnoremap <leader>sv :so $MYVIMRC<CR>
+"" Move line downwards, also works with multiple <n>-
+nnoremap - ddp
+"" Move line upwards, also works with multiple <n>-
+nnoremap _ ddkP
+"" Enable delete line in insert mode
+inoremap <C-d> <esc>ddi
+"" Enable undo in insert mode
+inoremap <C-u> <esc>ui
+"" Go specific
+"" :GoImports
+nnoremap <leader>gi :w<CR>:GoImports<CR>
+"" :GoBuild
+nnoremap <leader>gb :w<CR>:GoBuild<CR>
+"" :GoTest
+nnoremap <leader>gt :w<CR>:GoTest<CR>
+"" :GoDoc
+nnoremap <leader>gd :GoDoc<CR>
+"" Highlight unused imports, first saves, clears previous matches
+nnoremap <leader>ji :w<CR>:call clearmatches()<CR>:let cmd = system('unused -v true ' . expand('%'))<CR>:exec cmd<CR>
+
+" triggers
+autocmd FileType python,java,go autocmd FileWritePre    * :call TrimWhiteSpace()
+autocmd FileType python,java,go autocmd FileAppendPre   * :call TrimWhiteSpace()
+autocmd FileType python,java,go autocmd FilterWritePre  * :call TrimWhiteSpace()
+autocmd FileType python,java,go autocmd BufWritePre     * :call TrimWhiteSpace()
+" No automatic comments
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+" config per file type
+autocmd Filetype html setlocal ts=2 sts=2 sw=2
+autocmd FileType javascript setlocal sw=2 ts=2 sts=2 expandtab
+autocmd FileType json setlocal sw=2 ts=2 sts=2 expandtab
+autocmd FileType haskell setlocal sw=2 ts=2 sts=2 expandtab
+autocmd FileType rust setlocal sw=2 ts=2 sts=2 expandtab
+autocmd FileType ruby setlocal sw=2 ts=2 sts=2 expandtab
+autocmd FileType haml setlocal sw=2 ts=2 sts=2 expandtab
+autocmd FileType php setlocal sw=2 ts=2 sts=2 expandtab
+autocmd FileType java setlocal sw=4 ts=4 sts=4 expandtab
+
+" ignore certain files when using ctrl+p
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/vendor,*/node_modules/*,*/tmp/*
