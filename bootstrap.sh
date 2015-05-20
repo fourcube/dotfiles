@@ -3,7 +3,7 @@ export TMP_PATH="./tmp"
 [ -d "$TMP_PATH" ] || mkdir "$TMP_PATH";
 
 sudo apt-get install build-essential git-core vim-nox \
-		 texlive
+		 texlive xsel
 ln -s ~/dotfiles/vim ~/.vim
 ln -s ~/dotfiles/vim/vimrc ~/.vimrc
 
