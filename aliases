@@ -1,0 +1,10 @@
+alias pbcopy='xsel --clipboard --input'
+alias pbpaste='xsel --clipboard --output'
+alias g='git'
+
+git config --global alias.ci commit
+git config --global alias.l log
+git config --global alias.s status
+git config --global alias.a add
+git config --global alias.d diff
+
