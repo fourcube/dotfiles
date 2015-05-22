@@ -30,7 +30,7 @@ set shiftwidth=2
 set tabstop=2
 
 " highlighting
-call matchadd('ErrorMsg', '\%>90v.\+')
+let line_len_match = matchadd('ErrorMsg', '\%>90v.\+')
 call matchadd('Error', '\s\+$')
 
 " keybindings
@@ -64,6 +64,9 @@ nnoremap <leader>gt :w<CR>:GoTest<CR>
 nnoremap <leader>gd :GoDoc<CR>
 "" Highlight unused imports, first saves, clears previous matches
 nnoremap <leader>ji :w<CR>:call clearmatches()<CR>:let cmd = system('unused -v true ' . expand('%'))<CR>:exec cmd<CR>
+" LaTeX stuff
+autocmd BufNewFile,BufRead *.tex setlocal spell spelllang=en_gb
+autocmd BufNewFile,BufRead *.tex call matchdelete(line_len_match) 
 
 " triggers
 autocmd FileType python,java,go autocmd FileWritePre    * :call TrimWhiteSpace()
