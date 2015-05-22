@@ -1,3 +1,5 @@
 export GOROOT=$HOME/tools/go
 export GOPATH=$HOME/gopath
-export PATH=$GOPATH:$GOPATH/bin:$GOROOT/bin:$PATH
+export LEININGEN=$HOME/tools/leiningen
+export RBENV_PATH=$HOME/.rbenv
+export PATH=$GOPATH:$GOPATH/bin:$GOROOT/bin:$LEININGEN:$HOME/bin:$RBENV_PATH/bin:$PATH
